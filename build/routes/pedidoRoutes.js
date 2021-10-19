@@ -11,13 +11,13 @@ class PedidoRoutes {
         this.config();
     }
     config() {
-        this.router.get('/', pedidoController_1.default.list);
-        this.router.get('/user/:id', pedidoController_1.default.listOne);
-        this.router.get('/dataPedido/:id', pedidoController_1.default.listDataUser);
-        this.router.get('/:id', pedidoController_1.default.getOne);
-        this.router.post('/', pedidoController_1.default.create);
-        this.router.put('/:id', pedidoController_1.default.update);
-        this.router.delete('/:id', pedidoController_1.default.delete);
+        this.router.get("/", pedidoController_1.default.list);
+        this.router.get("/:id", pedidoController_1.default.getOne);
+        this.router.post("/", pedidoController_1.default.create);
+        this.router.put("/:id", pedidoController_1.default.update);
+        this.router.delete("/:id", pedidoController_1.default.delete);
+        //Obtiene los pedidos del USUARIO
+        this.router.get("/get/:id", pedidoController_1.default.listPedidoUser);
     }
 }
 const pedidoRoutes = new PedidoRoutes();

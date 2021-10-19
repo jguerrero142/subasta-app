@@ -14,53 +14,61 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
 class UserController {
-    list(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const user = yield database_1.default.query('SELECT * FROM user');
-            res.json(user);
-        });
-    }
     loginUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const user = yield database_1.default.query('SELECT * FROM user WHERE sub =?', [id]);
+            const user = yield database_1.default.query("SELECT * FROM user WHERE sub =?", [id]);
             if (user.length > 0) {
-                return res.json(user[0]);
+                yield database_1.default.query("UPDATE user set ? WHERE sub =?", [req.body, id]);
+                const uuser = yield database_1.default.query("SELECT * FROM user WHERE sub =?", [id]);
+                return res.json(uuser[0]);
             }
-            yield database_1.default.query('INSERT INTO user set sub = ? ', [id]);
-            const uuser = yield database_1.default.query('SELECT * FROM user WHERE sub =?', [id]);
+            yield database_1.default.query("INSERT INTO user set sub = ? ", [id]);
+            yield database_1.default.query("UPDATE user set ? WHERE sub =?", [req.body, id]);
+            const uuser = yield database_1.default.query("SELECT * FROM user WHERE sub =?", [id]);
             return res.json(uuser[0]);
         });
     }
-    update(req, res) {
+    // CRUD user
+    //Obtiene todos los usuarios
+    list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('UPDATE user set ? WHERE sub =?', [req.body, id]);
-            const uuser = yield database_1.default.query('SELECT * FROM user WHERE sub =?', [id]);
-            return res.json(uuser[0]);
+            const user = yield database_1.default.query("SELECT * FROM user");
+            res.json(user);
         });
     }
+    //Obtiene ONE usuario
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const user = yield database_1.default.query('SELECT * FROM user WHERE sub =?', [id]);
+            const user = yield database_1.default.query("SELECT * FROM user WHERE sub =?", [id]);
             if (user.length > 0) {
                 return res.json(user[0]);
             }
-            res.status(404).json({ text: 'el usuario no existe' });
+            res.status(404).json({ text: "el usuario no existe" });
         });
     }
+    //Crea usuario
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO user set ? ', [req.body]);
-            res.json({ message: 'usuario guardados' });
+            yield database_1.default.query("INSERT INTO user set ? ", [req.body]);
+            res.json({ message: "usuario guardados" });
         });
     }
+    //Elimina usuario
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('DELETE FROM user WHERE id_user = ?', [id]);
-            res.json({ message: 'the user was deleted' });
+            yield database_1.default.query("DELETE FROM user WHERE id_user = ?", [id]);
+            res.json({ message: "the user was deleted" });
+        });
+    }
+    //Actualiza usuario
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query("UPDATE user set ? WHERE sub =?", [req.body, id]);
+            res.json({ text: "el  usuario fue actualizado " });
         });
     }
 }
