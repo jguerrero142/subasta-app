@@ -1,7 +1,13 @@
 import { Request, Response } from "express";
 import pool from "../database";
+import { Store } from '../Interfaces/Store.model';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../Interfaces/User.model';
 
 class UserController {
+
+
+
   public async loginUser(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
     const user = await pool.query("SELECT * FROM user WHERE sub =?", [id]);
@@ -15,6 +21,7 @@ class UserController {
     const uuser = await pool.query("SELECT * FROM user WHERE sub =?", [id]);
     return res.json(uuser[0]);
   }
+
 
   // CRUD user
   //Obtiene todos los usuarios

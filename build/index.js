@@ -12,6 +12,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const config_1 = __importDefault(require("./routes/config"));
 const pedidoRoutes_1 = __importDefault(require("./routes/pedidoRoutes"));
+const facturaRoutes_1 = __importDefault(require("./routes/facturaRoutes"));
 class Server {
     //cuando instanciamos la clase ejecuta los metodos.
     constructor() {
@@ -39,6 +40,7 @@ class Server {
         this.app.use('/api/ticket', ticketRoutes_1.default);
         this.app.use('/api/pedido', pedidoRoutes_1.default);
         this.app.use('/api/config', config_1.default);
+        this.app.use('/api/factura', facturaRoutes_1.default);
     }
     //configuramos la inicializacion del servicio por el puerto 3000
     start() {

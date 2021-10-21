@@ -32,10 +32,10 @@ class PedidoController {
   public async create(req: Request, res: Response) {
     await pool.query("INSERT INTO pedido set ?", [req.body]);
     const id_pedido = await pool.query(
-      "SELECT id FROM pedido WHERE estado_ped = true"
+      "SELECT id FROM pedido WHERE value_pedido = true"
     );
     await pool.query(
-      "UPDATE pedido set estado_ped = false WHERE estado_ped = true"
+      "UPDATE pedido set value_pedido = false WHERE value_pedido = true"
     );
     return res.json(id_pedido[0]);
   }

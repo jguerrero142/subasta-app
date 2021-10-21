@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import configRoutes from './routes/config';
 import pedidoRoutes from './routes/pedidoRoutes';
+import facturaRoutes from './routes/facturaRoutes';
 
 class Server {
 
@@ -37,7 +38,8 @@ class Server {
         this.app.use('/api/producto', productRoutes); 
         this.app.use('/api/ticket', ticketRoutes);
         this.app.use('/api/pedido', pedidoRoutes);
-        this.app.use('/api/config', configRoutes);         
+        this.app.use('/api/config', configRoutes);
+        this.app.use('/api/factura', facturaRoutes);         
     }
     //configuramos la inicializacion del servicio por el puerto 3000
     start(): void{
