@@ -18,11 +18,11 @@ class TicketController {
     getTickets(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const ticket = yield database_1.default.query("SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = 1 AND user_ticket =?", [id]);
+            const ticket = yield database_1.default.query("SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = 0 AND user_ticket =?", [id]);
             if (ticket.length > 0) {
                 return res.json(ticket);
             }
-            res.status(404).json({ text: "el pedido no tiene tickets" });
+            res.status(404).json({ text: "el usuario no tiene tickets" });
         });
     }
     //Crud Tickets
@@ -50,7 +50,9 @@ class TicketController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO ticket set ?", [req.body]);
-            res.json({ message: "ticket guardados" });
+            const ticket = yield database_1.default.query("SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = true");
+            yield database_1.default.query("UPDATE ticket set estado = false WHERE estado = true");
+            return res.json(ticket);
         });
     }
     //Elimina TICKETS

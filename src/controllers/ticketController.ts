@@ -6,13 +6,13 @@ class TicketController {
   public async getTickets(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
     const ticket = await pool.query(
-      "SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = 1 AND user_ticket =?",
+      "SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = 0 AND user_ticket =?",
       [id]
     );
     if (ticket.length > 0) {
       return res.json(ticket);
     }
-    res.status(404).json({ text: "el pedido no tiene tickets" });
+    res.status(404).json({ text: "el usuario no tiene tickets" });
   }
 
   //Crud Tickets
@@ -36,9 +36,15 @@ class TicketController {
   }
 
   //Crea TICKETS
-  public async create(req: Request, res: Response): Promise<void> {
+  public async create(req: Request, res: Response){
     await pool.query("INSERT INTO ticket set ?", [req.body]);
-    res.json({ message: "ticket guardados" });
+    const ticket = await pool.query(
+      "SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = true"
+    );
+    await pool.query(
+      "UPDATE ticket set estado = false WHERE estado = true"
+    );
+    return res.json(ticket);
   }
 
   //Elimina TICKETS

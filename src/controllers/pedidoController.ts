@@ -31,13 +31,13 @@ class PedidoController {
   //Crear el pedido y obtiene el ID
   public async create(req: Request, res: Response) {
     await pool.query("INSERT INTO pedido set ?", [req.body]);
-    const id_pedido = await pool.query(
-      "SELECT id FROM pedido WHERE value_pedido = true"
+    const pedido = await pool.query(
+      "SELECT * FROM pedido WHERE value_pedido = true"
     );
     await pool.query(
       "UPDATE pedido set value_pedido = false WHERE value_pedido = true"
     );
-    return res.json(id_pedido[0]);
+    return res.json(pedido[0]);
   }
 
   // Elimina los tickets y el pedido x id

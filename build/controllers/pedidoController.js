@@ -47,9 +47,9 @@ class PedidoController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO pedido set ?", [req.body]);
-            const id_pedido = yield database_1.default.query("SELECT id FROM pedido WHERE value_pedido = true");
+            const pedido = yield database_1.default.query("SELECT * FROM pedido WHERE value_pedido = true");
             yield database_1.default.query("UPDATE pedido set value_pedido = false WHERE value_pedido = true");
-            return res.json(id_pedido[0]);
+            return res.json(pedido[0]);
         });
     }
     // Elimina los tickets y el pedido x id
