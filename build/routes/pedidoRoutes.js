@@ -18,6 +18,8 @@ class PedidoRoutes {
         this.router.delete("/:id", pedidoController_1.default.delete);
         //Obtiene los pedidos del USUARIO
         this.router.get("/get/:id", pedidoController_1.default.listPedidoUser);
+        //Obtiene el estado del PEDIDO
+        this.router.get("/state/:id", pedidoController_1.default.getState);
     }
 }
 const pedidoRoutes = new PedidoRoutes();

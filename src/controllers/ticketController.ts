@@ -12,14 +12,14 @@ class TicketController {
     if (ticket.length > 0) {
       return res.json(ticket);
     }
-    res.status(404).json({ text: "el usuario no tiene tickets" });
+    res.json({ text: "el usuario no tiene tickets" });
   }
 
   //Crud Tickets
 
   //Obtiene todos los TICKETS
   public async list(req: Request, res: Response) {
-    const ticket = await pool.query("SELECT * FROM ticket");
+    const ticket = await pool.query("SELECT id_ticket, user_ticket, producto, ticket.create_at, id_pedido,estado,producto.name,producto.valor, producto.descripcion, producto.image, producto.producto_tipo FROM ticket INNER JOIN producto ON producto.id = ticket.producto");
     res.json(ticket);
   }
 

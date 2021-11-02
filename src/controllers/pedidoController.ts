@@ -11,10 +11,16 @@ class PedidoController {
     res.json(pedido);
   }
 
+  public async getState(req: Request, res: Response){
+    const { id } = req.params;
+    const state = await pool.query("SELECT pedido_estado FROM pedido WHERE id = ?", [id]);
+    res.json(state[0])
+  }
+
   //CRUD PEDIDOS
   // Obtiene todos los PEDIDOS
   public async list(req: Request, res: Response) {
-    const pedido = await pool.query("SELECT * FROM pedido");
+    const pedido = await pool.query("SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user");
     res.json(pedido);
   }
 
@@ -43,7 +49,7 @@ class PedidoController {
   // Elimina los tickets y el pedido x id
   public async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
-    await pool.query("DELETE FROM ticket WHERE id_pedido = ?", [id]);
+    await pool.query("DELETE FROM ticket WHERE id_pedido = ? ", [id]);
     await pool.query("DELETE FROM pedido WHERE id = ?", [id]);
     res.json({ message: "the pedido was deleted" });
   }

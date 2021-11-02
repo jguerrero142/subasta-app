@@ -17,6 +17,8 @@ class PedidoRoutes {
 
     //Obtiene los pedidos del USUARIO
     this.router.get("/get/:id", pedidoController.listPedidoUser);
+    //Obtiene el estado del PEDIDO
+    this.router.get("/state/:id", pedidoController.getState);
   }
 }
 

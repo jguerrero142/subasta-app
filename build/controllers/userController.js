@@ -20,12 +20,12 @@ class UserController {
             const user = yield database_1.default.query("SELECT * FROM user WHERE sub =?", [id]);
             if (user.length > 0) {
                 yield database_1.default.query("UPDATE user set ? WHERE sub =?", [req.body, id]);
-                const uuser = yield database_1.default.query("SELECT * FROM user WHERE sub =?", [id]);
+                const uuser = yield database_1.default.query("SELECT id_user, sub, name, picture, email, roles.id_role, roles.role_user, enterprise.id_enterprise,enterprise.name_enterprise FROM user inner JOIN roles on roles.id_role = user.role inner JOIN enterprise on enterprise.id_enterprise = user.id_empresa WHERE sub = ?", [id]);
                 return res.json(uuser[0]);
             }
             yield database_1.default.query("INSERT INTO user set sub = ? ", [id]);
             yield database_1.default.query("UPDATE user set ? WHERE sub =?", [req.body, id]);
-            const uuser = yield database_1.default.query("SELECT * FROM user WHERE sub =?", [id]);
+            const uuser = yield database_1.default.query("SELECT id_user, sub, name, picture, email, roles.id_role, roles.role_user, enterprise.id_enterprise,enterprise.name_enterprise FROM user inner JOIN roles on roles.id_role = user.role inner JOIN enterprise on enterprise.id_enterprise = user.id_empresa WHERE sub = ?", [id]);
             return res.json(uuser[0]);
         });
     }
@@ -33,7 +33,7 @@ class UserController {
     //Obtiene todos los usuarios
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield database_1.default.query("SELECT * FROM user");
+            const user = yield database_1.default.query("SELECT * FROM user ");
             res.json(user);
         });
     }

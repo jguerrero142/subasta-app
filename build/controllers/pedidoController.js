@@ -24,11 +24,18 @@ class PedidoController {
             res.json(pedido);
         });
     }
+    getState(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const state = yield database_1.default.query("SELECT pedido_estado FROM pedido WHERE id = ?", [id]);
+            res.json(state[0]);
+        });
+    }
     //CRUD PEDIDOS
     // Obtiene todos los PEDIDOS
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const pedido = yield database_1.default.query("SELECT * FROM pedido");
+            const pedido = yield database_1.default.query("SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user");
             res.json(pedido);
         });
     }
@@ -56,7 +63,7 @@ class PedidoController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM ticket WHERE id_pedido = ?", [id]);
+            yield database_1.default.query("DELETE FROM ticket WHERE id_pedido = ? ", [id]);
             yield database_1.default.query("DELETE FROM pedido WHERE id = ?", [id]);
             res.json({ message: "the pedido was deleted" });
         });
