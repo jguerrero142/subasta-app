@@ -38,7 +38,7 @@ class PedidoController {
   public async create(req: Request, res: Response) {
     await pool.query("INSERT INTO pedido set ?", [req.body]);
     const pedido = await pool.query(
-      "SELECT * FROM pedido WHERE value_pedido = true"
+      "SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user WHERE value_pedido = true"
     );
     await pool.query(
       "UPDATE pedido set value_pedido = false WHERE value_pedido = true"

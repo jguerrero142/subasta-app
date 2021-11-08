@@ -54,7 +54,7 @@ class PedidoController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO pedido set ?", [req.body]);
-            const pedido = yield database_1.default.query("SELECT * FROM pedido WHERE value_pedido = true");
+            const pedido = yield database_1.default.query("SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user WHERE value_pedido = true");
             yield database_1.default.query("UPDATE pedido set value_pedido = false WHERE value_pedido = true");
             return res.json(pedido[0]);
         });
