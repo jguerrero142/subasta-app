@@ -13,21 +13,21 @@ class PedidoController {
 
   public async getState(req: Request, res: Response){
     const { id } = req.params;
-    const state = await pool.query("SELECT pedido_estado FROM pedido WHERE id = ?", [id]);
+    const state = await pool.query("SELECT pedido_estado FROM pedido WHERE id_pedido = ?", [id]);
     res.json(state[0])
   }
 
   //CRUD PEDIDOS
   // Obtiene todos los PEDIDOS
   public async list(req: Request, res: Response) {
-    const pedido = await pool.query("SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user");
+    const pedido = await pool.query("SELECT id_pedido,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user");
     res.json(pedido);
   }
 
   // Obtiene PEDIDO x id
   public async getOne(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
-    const pedido = await pool.query("SELECT * FROM pedido WHERE id = ?", [id]);
+    const pedido = await pool.query("SELECT * FROM pedido WHERE id_pedido = ?", [id]);
     if (pedido.length > 0) {
       return res.json(pedido);
     }
@@ -36,13 +36,13 @@ class PedidoController {
 
   //Crear el pedido y obtiene el ID
   public async create(req: Request, res: Response) {
+    const { id } = req.params;
     await pool.query("INSERT INTO pedido set ?", [req.body]);
     const pedido = await pool.query(
-      "SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user WHERE value_pedido = true"
+      "SELECT pedido.id_pedido,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user WHERE value_pedido = true AND pedido.id_user = ?", [id]
     );
     await pool.query(
-      "UPDATE pedido set value_pedido = false WHERE value_pedido = true"
-    );
+      "UPDATE pedido set value_pedido = false WHERE value_pedido = true AND id_user = ?", [id]);
     return res.json(pedido[0]);
   }
 
@@ -50,7 +50,7 @@ class PedidoController {
   public async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     await pool.query("DELETE FROM ticket WHERE id_pedido = ? ", [id]);
-    await pool.query("DELETE FROM pedido WHERE id = ?", [id]);
+    await pool.query("DELETE FROM pedido WHERE id_pedido = ?", [id]);
     res.json({ message: "the pedido was deleted" });
   }
 

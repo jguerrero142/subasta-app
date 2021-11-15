@@ -37,14 +37,8 @@ class TicketController {
 
   //Crea TICKETS
   public async create(req: Request, res: Response){
-    await pool.query("INSERT INTO ticket set ?", [req.body]);
-    const ticket = await pool.query(
-      "SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = true"
-    );
-    await pool.query(
-      "UPDATE ticket set estado = false WHERE estado = true"
-    );
-    return res.json(ticket);
+  await pool.query("INSERT INTO ticket set ?", [req.body]);
+  res.json({ text: "el ticket se guardo con exito" });
   }
 
   //Elimina TICKETS

@@ -27,7 +27,7 @@ class PedidoController {
     getState(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const state = yield database_1.default.query("SELECT pedido_estado FROM pedido WHERE id = ?", [id]);
+            const state = yield database_1.default.query("SELECT pedido_estado FROM pedido WHERE id_pedido = ?", [id]);
             res.json(state[0]);
         });
     }
@@ -35,7 +35,7 @@ class PedidoController {
     // Obtiene todos los PEDIDOS
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const pedido = yield database_1.default.query("SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user");
+            const pedido = yield database_1.default.query("SELECT id_pedido,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user");
             res.json(pedido);
         });
     }
@@ -43,7 +43,7 @@ class PedidoController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pedido = yield database_1.default.query("SELECT * FROM pedido WHERE id = ?", [id]);
+            const pedido = yield database_1.default.query("SELECT * FROM pedido WHERE id_pedido = ?", [id]);
             if (pedido.length > 0) {
                 return res.json(pedido);
             }
@@ -53,9 +53,10 @@ class PedidoController {
     //Crear el pedido y obtiene el ID
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
             yield database_1.default.query("INSERT INTO pedido set ?", [req.body]);
-            const pedido = yield database_1.default.query("SELECT id,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user WHERE value_pedido = true");
-            yield database_1.default.query("UPDATE pedido set value_pedido = false WHERE value_pedido = true");
+            const pedido = yield database_1.default.query("SELECT pedido.id_pedido,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user WHERE value_pedido = true AND pedido.id_user = ?", [id]);
+            yield database_1.default.query("UPDATE pedido set value_pedido = false WHERE value_pedido = true AND id_user = ?", [id]);
             return res.json(pedido[0]);
         });
     }
@@ -64,7 +65,7 @@ class PedidoController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             yield database_1.default.query("DELETE FROM ticket WHERE id_pedido = ? ", [id]);
-            yield database_1.default.query("DELETE FROM pedido WHERE id = ?", [id]);
+            yield database_1.default.query("DELETE FROM pedido WHERE id_pedido = ?", [id]);
             res.json({ message: "the pedido was deleted" });
         });
     }

@@ -11,7 +11,7 @@ class PedidoRoutes {
   config(): void {
     this.router.get("/", pedidoController.list);
     this.router.get("/:id", pedidoController.getOne);
-    this.router.post("/", pedidoController.create);
+    this.router.post("/:id", pedidoController.create);
     this.router.put("/:id", pedidoController.update);
     this.router.delete("/:id", pedidoController.delete);
 

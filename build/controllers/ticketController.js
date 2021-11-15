@@ -50,9 +50,7 @@ class TicketController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO ticket set ?", [req.body]);
-            const ticket = yield database_1.default.query("SELECT id_ticket, user_ticket,producto,ticket.create_at,id_pedido,estado,producto.name, producto.valor, producto.image FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE estado = true");
-            yield database_1.default.query("UPDATE ticket set estado = false WHERE estado = true");
-            return res.json(ticket);
+            res.json({ text: "el ticket se guardo con exito" });
         });
     }
     //Elimina TICKETS
