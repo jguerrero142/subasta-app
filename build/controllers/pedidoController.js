@@ -18,7 +18,7 @@ class PedidoController {
     listPedidoUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const pedido = yield database_1.default.query("SELECT * FROM pedido  WHERE id_user = ?", [
+            const pedido = yield database_1.default.query("SELECT * FROM pedido  WHERE id_user = ? AND pedido_estado = 1 OR pedido_estado = 2", [
                 id,
             ]);
             res.json(pedido);
@@ -64,8 +64,8 @@ class PedidoController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM ticket WHERE id_pedido = ? ", [id]);
-            yield database_1.default.query("DELETE FROM pedido WHERE id_pedido = ?", [id]);
+            yield database_1.default.query("UPDATE ticket set estado = false WHERE id_pedido = ? ", [id]);
+            yield database_1.default.query("UPDATE pedido set pedido_estado = 6 WHERE id_pedido = ?", [id]);
             res.json({ message: "the pedido was deleted" });
         });
     }

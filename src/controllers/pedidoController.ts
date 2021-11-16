@@ -5,7 +5,7 @@ class PedidoController {
   //Obtiene todos los PEDIDOS de un USUARIO.
   public async listPedidoUser(req: Request, res: Response) {
     const { id } = req.params;
-    const pedido = await pool.query("SELECT * FROM pedido  WHERE id_user = ?", [
+    const pedido = await pool.query("SELECT * FROM pedido  WHERE id_user = ? AND pedido_estado = 1 OR pedido_estado = 2", [
       id,
     ]);
     res.json(pedido);
@@ -49,8 +49,8 @@ class PedidoController {
   // Elimina los tickets y el pedido x id
   public async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
-    await pool.query("DELETE FROM ticket WHERE id_pedido = ? ", [id]);
-    await pool.query("DELETE FROM pedido WHERE id_pedido = ?", [id]);
+    await pool.query("UPDATE ticket set estado = false WHERE id_pedido = ? ", [id]);
+    await pool.query("UPDATE pedido set pedido_estado = 6 WHERE id_pedido = ?", [id]);
     res.json({ message: "the pedido was deleted" });
   }
 
