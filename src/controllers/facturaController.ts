@@ -11,6 +11,13 @@ class FacturaController {
     res.json(factura);
   }
 
+  //Obtiene todos los Metodos de Pago.
+  public async listMetodoPago(req: Request, res: Response) {
+    const { id } = req.params;
+    const factura = await pool.query("SELECT * FROM metodo_pago");
+    res.json(factura);
+  }
+
   //CRUD factura
   // Obtiene todos las factura
   public async list(req: Request, res: Response) {
@@ -30,14 +37,15 @@ class FacturaController {
 
   //Crear el factura y obtiene el ID
   public async create(req: Request, res: Response) {
+    const { id } = req.params;
     await pool.query("INSERT INTO factura set ?", [req.body]);
-    const id_factura = await pool.query(
-      "SELECT id_factura FROM factura WHERE estado = 0"
+    const factura = await pool.query(
+      "SELECT factura.id_factura, factura.id_pedido, factura.id_user, factura.valor, factura.id_metodo, factura.estado_valor,factura.estado_factura, factura.user_update, factura.create_at, factura.update_at, factura.observacion, user.name FROM factura INNER JOIN user ON user.id_user = factura.id_user WHERE estado = 0 AND factura.id_user = ?", [id]
     );
+    
     await pool.query(
-      "UPDATE factura set estado = 1 WHERE estado = 0"
-    );
-    return res.json(id_factura[0]);
+      "UPDATE factura set estado = 1 WHERE estado = 0 AND id_user = ?",[id]);
+    return res.json(factura[0]);
   }
 
   // Elimina los tickets y el factura x id

@@ -73,8 +73,9 @@ class PedidoController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("UPDATE pedido set ? WHERE id_user=?", [req.body, id]);
-            res.json({ text: "el  pedido fue actualizado " });
+            yield database_1.default.query("UPDATE pedido set ? WHERE id_pedido = ?", [req.body, id]);
+            const pedido = yield database_1.default.query("SELECT pedido.id_pedido,pedido.id_user, valor, created_at,value_pedido,servicio,estado_valor,metodo_pago, pedido_estado,user_update,update_at,user.name FROM pedido INNER JOIN user ON user.id_user = pedido.id_user WHERE id_pedido = ?", [id]);
+            return res.json(pedido[0]);
         });
     }
 }

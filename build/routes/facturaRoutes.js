@@ -13,10 +13,11 @@ class FacturaRoutes {
     config() {
         this.router.get("/", facturaController_1.default.list);
         this.router.get("/:id", facturaController_1.default.getOne);
-        this.router.post("/", facturaController_1.default.create);
+        this.router.post("/:id", facturaController_1.default.create);
         this.router.put("/:id", facturaController_1.default.update);
         //Obtiene los pedidos del USUARIO
         this.router.get("/get/:id", facturaController_1.default.listfacturaUser);
+        this.router.get("/metodo-pago/get", facturaController_1.default.listMetodoPago);
     }
 }
 const facturaRoutes = new FacturaRoutes();

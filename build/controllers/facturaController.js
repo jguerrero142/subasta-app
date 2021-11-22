@@ -24,6 +24,14 @@ class FacturaController {
             res.json(factura);
         });
     }
+    //Obtiene todos los Metodos de Pago.
+    listMetodoPago(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const factura = yield database_1.default.query("SELECT * FROM metodo_pago");
+            res.json(factura);
+        });
+    }
     //CRUD factura
     // Obtiene todos las factura
     list(req, res) {
@@ -46,10 +54,11 @@ class FacturaController {
     //Crear el factura y obtiene el ID
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
             yield database_1.default.query("INSERT INTO factura set ?", [req.body]);
-            const id_factura = yield database_1.default.query("SELECT id_factura FROM factura WHERE estado = 0");
-            yield database_1.default.query("UPDATE factura set estado = 1 WHERE estado = 0");
-            return res.json(id_factura[0]);
+            const factura = yield database_1.default.query("SELECT factura.id_factura, factura.id_pedido, factura.id_user, factura.valor, factura.id_metodo, factura.estado_valor,factura.estado_factura, factura.user_update, factura.create_at, factura.update_at, factura.observacion, user.name FROM factura INNER JOIN user ON user.id_user = factura.id_user WHERE estado = 0 AND factura.id_user = ?", [id]);
+            yield database_1.default.query("UPDATE factura set estado = 1 WHERE estado = 0 AND id_user = ?", [id]);
+            return res.json(factura[0]);
         });
     }
     // Elimina los tickets y el factura x id

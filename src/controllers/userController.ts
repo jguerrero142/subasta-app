@@ -9,7 +9,7 @@ class UserController {
     const user = await pool.query("SELECT * FROM user WHERE sub =?", [id]);
     if (user.length > 0) {
       await pool.query("UPDATE user set ? WHERE sub =?", [req.body, id]);
-      const uuser = await pool.query("SELECT id_user, sub, name, picture, email, roles.id_role, roles.role_user, enterprise.id_enterprise,enterprise.name_enterprise FROM user inner JOIN roles on roles.id_role = user.role inner JOIN enterprise on enterprise.id_enterprise = user.id_empresa WHERE sub = ?", [id]);
+      const uuser = await pool.query("SELECT id_user, sub, name, picture, email, roles.id_role, roles.role_user, enterprise.id_enterprise,enterprise.name_enterprise, contacto FROM user inner JOIN roles on roles.id_role = user.role inner JOIN enterprise on enterprise.id_enterprise = user.id_empresa WHERE sub = ?", [id]);
       return res.json(uuser[0]);
     }
     await pool.query("INSERT INTO user set sub = ? ", [id]);
