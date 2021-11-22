@@ -18,7 +18,7 @@ class FacturaController {
     listfacturaUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const factura = yield database_1.default.query("SELECT * FROM factura  WHERE id_user = ?", [
+            const factura = yield database_1.default.query("SELECT factura.id_factura, factura.id_pedido, factura.id_user, factura.valor, factura.id_metodo, factura.estado_valor,factura.estado_factura, factura.user_update, factura.create_at, factura.update_at, factura.observacion, user.name FROM factura INNER JOIN user ON user.id_user = factura.id_user WHERE factura.id_user = ?", [
                 id,
             ]);
             res.json(factura);
@@ -28,7 +28,7 @@ class FacturaController {
     listMetodoPago(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const factura = yield database_1.default.query("SELECT * FROM metodo_pago");
+            const factura = yield database_1.default.query("SELECT *  FROM metodo_pago");
             res.json(factura);
         });
     }
@@ -36,7 +36,7 @@ class FacturaController {
     // Obtiene todos las factura
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const factura = yield database_1.default.query("SELECT * FROM factura");
+            const factura = yield database_1.default.query("SELECT factura.id_factura, factura.id_pedido, factura.id_user, factura.valor, factura.id_metodo, factura.estado_valor,factura.estado_factura, factura.user_update, factura.create_at, factura.update_at, factura.observacion, user.name FROM factura INNER JOIN user ON user.id_user = factura.id_user WHERE estado_factura < 5");
             res.json(factura);
         });
     }

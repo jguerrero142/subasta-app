@@ -5,7 +5,7 @@ class FacturaController {
   //Obtiene todos los facturaS de un USUARIO.
   public async listfacturaUser(req: Request, res: Response) {
     const { id } = req.params;
-    const factura = await pool.query("SELECT * FROM factura  WHERE id_user = ?", [
+    const factura = await pool.query("SELECT factura.id_factura, factura.id_pedido, factura.id_user, factura.valor, factura.id_metodo, factura.estado_valor,factura.estado_factura, factura.user_update, factura.create_at, factura.update_at, factura.observacion, user.name FROM factura INNER JOIN user ON user.id_user = factura.id_user WHERE factura.id_user = ?", [
       id,
     ]);
     res.json(factura);
@@ -14,14 +14,14 @@ class FacturaController {
   //Obtiene todos los Metodos de Pago.
   public async listMetodoPago(req: Request, res: Response) {
     const { id } = req.params;
-    const factura = await pool.query("SELECT * FROM metodo_pago");
+    const factura = await pool.query("SELECT *  FROM metodo_pago");
     res.json(factura);
   }
 
   //CRUD factura
   // Obtiene todos las factura
   public async list(req: Request, res: Response) {
-    const factura = await pool.query("SELECT * FROM factura");
+    const factura = await pool.query("SELECT factura.id_factura, factura.id_pedido, factura.id_user, factura.valor, factura.id_metodo, factura.estado_valor,factura.estado_factura, factura.user_update, factura.create_at, factura.update_at, factura.observacion, user.name FROM factura INNER JOIN user ON user.id_user = factura.id_user WHERE estado_factura < 5");
     res.json(factura);
   }
 
