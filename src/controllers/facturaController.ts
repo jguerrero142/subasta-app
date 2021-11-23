@@ -18,6 +18,13 @@ class FacturaController {
     res.json(factura);
   }
 
+  // Actualiza las FACTURAS a FINALIZADAS
+  public async closeBox(req: Request, res: Response){
+    const  id  = 4;
+    await pool.query("UPDATE factura set estado_factura = 4");
+    res.json({ text: "el  factura fue actualizado " });
+  }
+
   //CRUD factura
   // Obtiene todos las factura
   public async list(req: Request, res: Response) {
@@ -57,7 +64,7 @@ class FacturaController {
 //   }
 
   //Actualiza el factura x id
-  public async update(req: Request, res: Response): Promise<void> {
+  public async update(req: Request, res: Response){
     const { id } = req.params;
     await pool.query("UPDATE factura set ? WHERE id_factura =?", [req.body, id]);
     res.json({ text: "el  factura fue actualizado " });

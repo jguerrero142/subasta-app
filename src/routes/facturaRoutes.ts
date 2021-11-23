@@ -17,6 +17,7 @@ class FacturaRoutes {
     //Obtiene los pedidos del USUARIO
     this.router.get("/get/:id", facturaController.listfacturaUser);
     this.router.get("/metodo-pago/get", facturaController.listMetodoPago);
+    this.router.get("/closed/up", facturaController.closeBox);
   }
 }
 

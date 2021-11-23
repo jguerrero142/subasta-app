@@ -32,6 +32,14 @@ class FacturaController {
             res.json(factura);
         });
     }
+    // Actualiza las FACTURAS a FINALIZADAS
+    closeBox(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = 4;
+            yield database_1.default.query("UPDATE factura set estado_factura = 4");
+            res.json({ text: "el  factura fue actualizado " });
+        });
+    }
     //CRUD factura
     // Obtiene todos las factura
     list(req, res) {
