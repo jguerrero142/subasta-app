@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-11-2021 a las 06:42:21
+-- Tiempo de generación: 23-11-2021 a las 06:07:04
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.3.21
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `factura` (
   `valor` int(11) NOT NULL,
   `id_metodo` int(15) DEFAULT NULL,
   `estado_valor` int(11) DEFAULT '1',
-  `estado_factura` int(11) DEFAULT '4',
+  `estado_factura` int(11) DEFAULT NULL,
   `user_update` int(11) DEFAULT NULL,
   `create_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -92,22 +92,23 @@ CREATE TABLE IF NOT EXISTS `factura` (
   KEY `user_update` (`user_update`),
   KEY `estado_valor` (`estado_valor`),
   KEY `id_metodo` (`id_metodo`)
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `factura`
 --
 
 INSERT INTO `factura` (`id_factura`, `id_user`, `id_pedido`, `valor`, `id_metodo`, `estado_valor`, `estado_factura`, `user_update`, `create_at`, `update_at`, `observacion`, `estado`) VALUES
-(141, 87, 183, 3000, 2, 2, 3, 87, '2021-11-22 04:26:37', '2021-11-22 04:26:37', NULL, 1),
-(142, 87, 182, 10000, 3, 1, 3, 87, '2021-11-22 04:26:48', '2021-11-22 04:26:48', NULL, 1),
-(143, 87, 184, 3000, 1, 2, 3, 87, '2021-11-22 04:38:51', '2021-11-22 04:38:52', NULL, 1),
-(144, 87, 185, 15000, 3, 2, 3, 87, '2021-11-22 04:40:04', '2021-11-22 04:40:04', NULL, 1),
-(145, 87, 186, 3000, NULL, 1, 3, 87, '2021-11-22 04:40:40', '2021-11-22 04:40:40', NULL, 1),
-(146, 87, 188, 10000, 2, 1, 3, 87, '2021-11-22 04:42:12', '2021-11-22 04:42:12', NULL, 1),
-(147, 87, 189, 10000, NULL, 1, 3, 87, '2021-11-22 04:44:45', '2021-11-22 04:44:45', NULL, 1),
-(148, 87, 183, 30000, NULL, 2, 5, 87, '2021-11-22 05:05:42', '2021-11-22 05:18:27', NULL, 1),
-(149, 87, 183, 30000, NULL, 2, 5, 87, '2021-11-22 05:07:56', '2021-11-22 05:18:27', NULL, 1);
+(151, 88, 199, 10000, NULL, 1, 4, 87, '2021-11-23 04:01:16', '2021-11-23 04:12:16', NULL, 1),
+(152, 89, 202, 15000, 2, 2, 4, 87, '2021-11-23 04:02:24', '2021-11-23 04:12:16', NULL, 1),
+(153, 89, 200, 10000, NULL, 1, 4, 87, '2021-11-23 04:06:02', '2021-11-23 04:12:16', NULL, 1),
+(154, 88, 203, 10000, 2, 2, 4, 87, '2021-11-23 04:07:31', '2021-11-23 04:12:16', NULL, 1),
+(155, 89, 204, 15000, 3, 2, 4, 87, '2021-11-23 04:09:53', '2021-11-23 04:12:16', NULL, 1),
+(156, 89, 201, 10000, NULL, 1, 4, 87, '2021-11-23 04:11:06', '2021-11-23 04:12:16', NULL, 1),
+(157, 89, 205, 10000, 3, 2, 4, 87, '2021-11-23 04:11:34', '2021-11-23 04:12:16', NULL, 1),
+(158, 88, 206, 10000, 2, 2, 4, 87, '2021-11-23 04:11:42', '2021-11-23 04:12:16', NULL, 1),
+(159, 88, 207, 10000, NULL, 1, 4, 87, '2021-11-23 04:15:30', '2021-11-23 04:15:45', NULL, 1),
+(160, 89, 208, 10000, 2, 2, 4, 87, '2021-11-23 04:15:38', '2021-11-23 04:15:45', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -185,24 +186,23 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   KEY `pedido_estado` (`pedido_estado`),
   KEY `user_update` (`user_update`),
   KEY `metodo_pago` (`metodo_pago`)
-) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
 INSERT INTO `pedido` (`id_pedido`, `id_user`, `valor`, `created_at`, `value_pedido`, `servicio`, `estado_valor`, `metodo_pago`, `pedido_estado`, `user_update`, `update_at`) VALUES
-(181, 87, 7000, '2021-11-22 01:51:02', 0, 1, 2, 1, 3, 87, '2021-11-22 01:51:02'),
-(182, 89, 10000, '2021-11-22 01:51:54', 0, 0, 2, 3, 3, 87, '2021-11-22 04:26:48'),
-(183, 88, 3000, '2021-11-22 01:52:11', 0, 1, 2, 2, 3, 87, '2021-11-22 04:26:37'),
-(184, 88, 3000, '2021-11-22 04:38:23', 0, 1, 2, 1, 3, 87, '2021-11-22 04:38:51'),
-(185, 89, 15000, '2021-11-22 04:39:59', 0, 1, 2, 3, 3, 87, '2021-11-22 04:40:04'),
-(186, 88, 3000, '2021-11-22 04:40:36', 0, 0, 1, NULL, 3, 87, '2021-11-22 04:40:40'),
-(187, 88, 10000, '2021-11-22 04:41:39', 0, 0, 1, NULL, 6, 88, '2021-11-22 04:41:48'),
-(188, 88, 10000, '2021-11-22 04:41:56', 0, 0, 2, 2, 3, 87, '2021-11-22 04:42:12'),
-(189, 88, 10000, '2021-11-22 04:44:40', 0, 0, 1, NULL, 3, 87, '2021-11-22 04:44:45'),
-(190, 88, 10000, '2021-11-22 05:47:54', 0, 0, 1, NULL, 1, 87, '2021-11-22 05:47:55'),
-(191, 87, 10000, '2021-11-22 06:08:30', 0, 0, 1, NULL, 1, 87, '2021-11-22 06:08:30');
+(199, 88, 10000, '2021-11-23 03:46:04', 0, 0, 1, NULL, 3, 87, '2021-11-23 04:01:16'),
+(200, 89, 10000, '2021-11-23 03:54:11', 0, 0, 1, NULL, 3, 87, '2021-11-23 04:06:02'),
+(201, 89, 10000, '2021-11-23 04:00:41', 0, 0, 1, NULL, 3, 87, '2021-11-23 04:11:06'),
+(202, 89, 15000, '2021-11-23 04:00:57', 0, 0, 2, 2, 3, 87, '2021-11-23 04:02:24'),
+(203, 88, 10000, '2021-11-23 04:07:23', 0, 0, 2, 2, 3, 87, '2021-11-23 04:07:31'),
+(204, 89, 15000, '2021-11-23 04:09:44', 0, 0, 2, 3, 3, 87, '2021-11-23 04:09:53'),
+(205, 89, 10000, '2021-11-23 04:11:18', 0, 0, 2, 3, 3, 87, '2021-11-23 04:11:34'),
+(206, 88, 10000, '2021-11-23 04:11:25', 0, 0, 2, 2, 3, 87, '2021-11-23 04:11:42'),
+(207, 88, 10000, '2021-11-23 04:15:12', 0, 0, 1, NULL, 3, 87, '2021-11-23 04:15:30'),
+(208, 89, 10000, '2021-11-23 04:15:23', 0, 0, 2, 2, 3, 87, '2021-11-23 04:15:38');
 
 -- --------------------------------------------------------
 
@@ -348,45 +348,42 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `producto` int(11) NOT NULL,
   `create_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `id_pedido` int(11) DEFAULT NULL,
+  `producto_tipo` int(11) NOT NULL,
   `estado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id_ticket`),
   KEY `producto` (`producto`),
   KEY `user_ticket` (`user_ticket`),
-  KEY `id_pedido` (`id_pedido`)
-) ENGINE=InnoDB AUTO_INCREMENT=319 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  KEY `id_pedido` (`id_pedido`),
+  KEY `producto_tipo` (`producto_tipo`)
+) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `ticket`
 --
 
-INSERT INTO `ticket` (`id_ticket`, `user_ticket`, `producto`, `create_at`, `id_pedido`, `estado`) VALUES
-(292, 87, 13, '2021-11-22 01:51:02', 181, 1),
-(293, 87, 14, '2021-11-22 01:51:02', 181, 1),
-(294, 87, 14, '2021-11-22 01:51:02', 181, 1),
-(295, 89, 9, '2021-11-22 01:51:55', 182, 1),
-(296, 89, 9, '2021-11-22 01:51:55', 182, 1),
-(297, 88, 19, '2021-11-22 01:52:11', 183, 1),
-(298, 88, 20, '2021-11-22 01:52:11', 183, 1),
-(299, 88, 20, '2021-11-22 01:52:11', 183, 1),
-(300, 88, 20, '2021-11-22 04:38:23', 184, 1),
-(301, 88, 17, '2021-11-22 04:38:23', 184, 1),
-(302, 88, 16, '2021-11-22 04:38:23', 184, 1),
-(303, 89, 12, '2021-11-22 04:39:59', 185, 1),
-(304, 89, 12, '2021-11-22 04:39:59', 185, 1),
-(305, 89, 13, '2021-11-22 04:39:59', 185, 1),
-(306, 88, 25, '2021-11-22 04:40:36', 186, 1),
-(307, 88, 25, '2021-11-22 04:40:36', 186, 1),
-(308, 88, 25, '2021-11-22 04:40:36', 186, 1),
-(309, 88, 10, '2021-11-22 04:41:40', 187, 0),
-(310, 88, 10, '2021-11-22 04:41:40', 187, 0),
-(311, 88, 12, '2021-11-22 04:41:56', 188, 1),
-(312, 88, 12, '2021-11-22 04:41:56', 188, 1),
-(313, 88, 9, '2021-11-22 04:44:40', 189, 1),
-(314, 88, 9, '2021-11-22 04:44:40', 189, 1),
-(315, 88, 9, '2021-11-22 05:47:55', 190, 1),
-(316, 88, 9, '2021-11-22 05:47:55', 190, 1),
-(317, 87, 9, '2021-11-22 06:08:30', 191, 1),
-(318, 87, 9, '2021-11-22 06:08:30', 191, 1);
+INSERT INTO `ticket` (`id_ticket`, `user_ticket`, `producto`, `create_at`, `id_pedido`, `producto_tipo`, `estado`) VALUES
+(335, 88, 9, '2021-11-23 03:46:04', 199, 1, 1),
+(336, 88, 9, '2021-11-23 03:46:04', 199, 1, 1),
+(337, 89, 10, '2021-11-23 03:54:11', 200, 1, 1),
+(338, 89, 10, '2021-11-23 03:54:11', 200, 1, 1),
+(339, 89, 13, '2021-11-23 04:00:41', 201, 2, 1),
+(340, 89, 13, '2021-11-23 04:00:41', 201, 2, 1),
+(341, 89, 11, '2021-11-23 04:00:57', 202, 1, 1),
+(342, 89, 11, '2021-11-23 04:00:57', 202, 1, 1),
+(343, 89, 9, '2021-11-23 04:00:57', 202, 1, 1),
+(344, 88, 9, '2021-11-23 04:07:23', 203, 1, 1),
+(345, 88, 9, '2021-11-23 04:07:23', 203, 1, 1),
+(346, 89, 9, '2021-11-23 04:09:44', 204, 1, 1),
+(347, 89, 9, '2021-11-23 04:09:44', 204, 1, 1),
+(348, 89, 11, '2021-11-23 04:09:44', 204, 1, 1),
+(349, 89, 9, '2021-11-23 04:11:18', 205, 1, 1),
+(350, 89, 11, '2021-11-23 04:11:18', 205, 1, 1),
+(351, 88, 10, '2021-11-23 04:11:25', 206, 1, 1),
+(352, 88, 10, '2021-11-23 04:11:25', 206, 1, 1),
+(353, 88, 9, '2021-11-23 04:15:13', 207, 1, 1),
+(354, 88, 9, '2021-11-23 04:15:13', 207, 1, 1),
+(355, 89, 11, '2021-11-23 04:15:23', 208, 1, 1),
+(356, 89, 11, '2021-11-23 04:15:23', 208, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -447,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id_user`, `sub`, `name`, `picture`, `email`, `create_at`, `given_name`, `family_name`, `nickname`, `locale`, `updated_at`, `email_verified`, `role`, `id_empresa`, `contacto`) VALUES
-(87, 'google-oauth2|112703936879554720334', 'Julian Guerrero', 'https://lh3.googleusercontent.com/a-/AOh14GhvDUEyiG-04sVHxOvp4dqZPiwHmokd7K40NaDAAA=s96-c', 'julgueover.05@gmail.com', '2021-10-31 22:54:36', 'Julian', 'Guerrero', 'julgueover.05', 'es', '2021-11-15T19:38:20.915Z', '1', 3, 1, NULL),
+(87, 'google-oauth2|112703936879554720334', 'Julian Guerrero', 'https://lh3.googleusercontent.com/a-/AOh14GhvDUEyiG-04sVHxOvp4dqZPiwHmokd7K40NaDAAA=s96-c', 'julgueover.05@gmail.com', '2021-10-31 22:54:36', 'Julian', 'Guerrero', 'julgueover.05', 'es', '2021-11-23T02:19:15.621Z', '1', 5, 1, NULL),
 (88, 'google-oauth2|115554611911654128336', 'Andrew Cast', 'https://lh3.googleusercontent.com/a-/AOh14GjHX6L2gWJzcIUeB7-GQIxiCMs9xgHMBMUze5S3=s96-c', 'andrewcast.0707@gmail.com', '2021-11-01 00:29:28', 'Andrew', 'Cast', 'andrewcast.0707', 'es', '2021-11-21T21:40:14.827Z', '1', 3, 1, NULL),
 (89, 'google-oauth2|11555554611911654128336', 'Cristiano', 'https://lh3.googleusercontent.com/a-/AOh14GjHX6L2gWJzcIUeB7-GQIxiCMs9xgHMBMUze5S3=s96-c', 'andrewcast.0707@gmail.com', '2021-11-01 00:29:28', 'Cristiano', 'Ronaldo', 'andrewcast.0707', 'es', '2021-11-07T02:18:46.484Z', '1', 3, 1, NULL);
 
@@ -488,7 +485,8 @@ ALTER TABLE `producto`
 ALTER TABLE `ticket`
   ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`user_ticket`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`producto`) REFERENCES `producto` (`id`),
-  ADD CONSTRAINT `ticket_ibfk_3` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`);
+  ADD CONSTRAINT `ticket_ibfk_3` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
+  ADD CONSTRAINT `ticket_ibfk_4` FOREIGN KEY (`producto_tipo`) REFERENCES `tipo_producto` (`id_tipo`);
 
 --
 -- Filtros para la tabla `user`
