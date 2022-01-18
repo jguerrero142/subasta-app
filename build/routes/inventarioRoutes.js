@@ -12,6 +12,7 @@ class InventarioRoutes {
     }
     config() {
         //this.router.get("/", inventarioController);
+        this.router.get("/", inventarioController_1.default.getAll);
         this.router.get("/getitem", inventarioController_1.default.getItems);
         this.router.post("/create", inventarioController_1.default.create);
         //     this.router.get("/:id", facturaController.getOne);

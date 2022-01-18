@@ -10,6 +10,7 @@ class InventarioRoutes {
 
 config(): void {
 //this.router.get("/", inventarioController);
+this.router.get("/", inventarioController.getAll);
 this.router.get("/getitem", inventarioController.getItems);
 this.router.post("/create", inventarioController.create);
 //     this.router.get("/:id", facturaController.getOne);

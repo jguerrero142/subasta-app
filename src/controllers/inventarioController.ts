@@ -11,7 +11,7 @@ class InventarioController {
     // } 
 
     public async getItems(req: Request, res: Response) {
-        const product = await pool.query('SELECT producto.id, producto.name,producto.valor as unitario, count(ticket.id_ticket) as cantidad, SUM(producto.valor) as total FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE ticket.estado = true GROUP BY ticket.producto');
+        const product = await pool.query('SELECT producto.id, producto.name,producto.valor as valor_unit, count(ticket.id_ticket) as cantidad, SUM(producto.valor) as valor_total FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE ticket.estado = true GROUP BY ticket.producto');
         res.json(product);
         }
 
@@ -19,6 +19,11 @@ class InventarioController {
         await pool.query("INSERT INTO inventario set ?", [req.body]);
         res.json({ message: "inventario guardados" });
         }
+    
+        public async getAll(req: Request, res: Response) {
+            const product = await pool.query('SELECT * FROM inventario');
+            res.json(product);
+            }
 
 
 

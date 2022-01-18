@@ -20,7 +20,7 @@ class InventarioController {
     // } 
     getItems(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const product = yield database_1.default.query('SELECT producto.id, producto.name,producto.valor as unitario, count(ticket.id_ticket) as cantidad, SUM(producto.valor) as total FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE ticket.estado = true GROUP BY ticket.producto');
+            const product = yield database_1.default.query('SELECT producto.id, producto.name,producto.valor as valor_unit, count(ticket.id_ticket) as cantidad, SUM(producto.valor) as valor_total FROM ticket INNER JOIN producto ON producto.id = ticket.producto WHERE ticket.estado = true GROUP BY ticket.producto');
             res.json(product);
         });
     }
@@ -28,6 +28,12 @@ class InventarioController {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO inventario set ?", [req.body]);
             res.json({ message: "inventario guardados" });
+        });
+    }
+    getAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const product = yield database_1.default.query('SELECT * FROM inventario');
+            res.json(product);
         });
     }
 }
