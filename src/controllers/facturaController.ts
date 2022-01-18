@@ -22,6 +22,8 @@ class FacturaController {
   public async closeBox(req: Request, res: Response){
     const  id  = 4;
     await pool.query("UPDATE factura set estado_factura = 4");
+    await pool.query("UPDATE pedido set pedido_estado = 4 WHERE pedido_estado = 3");
+    await pool.query("UPDATE pedido set pedido_estado = 6 WHERE pedido_estado < 3");
     res.json({ text: "el  factura fue actualizado " });
   }
 

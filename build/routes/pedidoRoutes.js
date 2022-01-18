@@ -7,7 +7,7 @@ const express_1 = require("express");
 const pedidoController_1 = __importDefault(require("../controllers/pedidoController"));
 class PedidoRoutes {
     constructor() {
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.config();
     }
     config() {

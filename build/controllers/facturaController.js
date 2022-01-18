@@ -37,6 +37,8 @@ class FacturaController {
         return __awaiter(this, void 0, void 0, function* () {
             const id = 4;
             yield database_1.default.query("UPDATE factura set estado_factura = 4");
+            yield database_1.default.query("UPDATE pedido set pedido_estado = 4 WHERE pedido_estado = 3");
+            yield database_1.default.query("UPDATE pedido set pedido_estado = 6 WHERE pedido_estado < 3");
             res.json({ text: "el  factura fue actualizado " });
         });
     }
