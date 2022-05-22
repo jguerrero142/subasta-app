@@ -13,6 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
+class VotosController {
+    crearVoto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const votos = yield database_1.default.query("insert into voto (active, id_sufragante, id_candidato , id_mesa)  values (true, 2, 1 , 1)", [
+                id,
+            ]);
+            res.json(votos);
+        });
+    }
+    getVotos() {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+}
 class PedidoController {
     //Obtiene todos los PEDIDOS de un USUARIO.
     listPedidoUser(req, res) {

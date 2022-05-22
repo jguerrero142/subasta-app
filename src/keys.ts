@@ -3,7 +3,7 @@ export default {
         host:'localhost',
         user: 'root',
         password: 'root',
-        database: 'app_store'
+        database: 'vote_bd'
     }
 
 }

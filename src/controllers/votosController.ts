@@ -1,6 +1,42 @@
 import { Request, Response } from "express";
 import pool from "../database";
 
+
+
+class VotosController{
+
+    public async crearVoto(req: Request, res: Response) {
+        const { id } = req.params;
+        const votos = await pool.query("insert into voto (active, id_sufragante, id_candidato , id_mesa)  values (true, 2, 1 , 1)", [
+          id,
+        ]);
+        res.json(votos);
+
+        
+      }
+
+      public async getVotos(){
+
+
+      }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class PedidoController {
   //Obtiene todos los PEDIDOS de un USUARIO.
   public async listPedidoUser(req: Request, res: Response) {

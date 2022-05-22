@@ -4,16 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
-const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
-const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
-const ticketRoutes_1 = __importDefault(require("./routes/ticketRoutes"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
-const config_1 = __importDefault(require("./routes/config"));
-const pedidoRoutes_1 = __importDefault(require("./routes/pedidoRoutes"));
-const facturaRoutes_1 = __importDefault(require("./routes/facturaRoutes"));
-const inventarioRoutes_1 = __importDefault(require("./routes/inventarioRoutes"));
+const votosRoutes_1 = __importDefault(require("./routes/votosRoutes"));
+const usuarioRoutes_1 = __importDefault(require("./routes/usuarioRoutes"));
 class Server {
     //cuando instanciamos la clase ejecuta los metodos.
     constructor() {
@@ -35,14 +29,8 @@ class Server {
     }
     //configuramos las rutas de la app
     routes() {
-        this.app.use(indexRoutes_1.default);
-        this.app.use('/api/user', userRoutes_1.default);
-        this.app.use('/api/producto', productRoutes_1.default);
-        this.app.use('/api/ticket', ticketRoutes_1.default);
-        this.app.use('/api/pedido', pedidoRoutes_1.default);
-        this.app.use('/api/config', config_1.default);
-        this.app.use('/api/factura', facturaRoutes_1.default);
-        this.app.use('/api/inventario', inventarioRoutes_1.default);
+        this.app.use('/api/votos/', votosRoutes_1.default);
+        this.app.use('/api/usuario', usuarioRoutes_1.default);
     }
     //configuramos la inicializacion del servicio por el puerto 3000
     start() {

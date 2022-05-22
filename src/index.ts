@@ -1,14 +1,8 @@
 import express, { Application } from 'express';
-import indexRoutes from './routes/indexRoutes';
-import userRoutes from './routes/userRoutes';
-import productRoutes from './routes/productRoutes';
-import ticketRoutes from './routes/ticketRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
-import configRoutes from './routes/config';
-import pedidoRoutes from './routes/pedidoRoutes';
-import facturaRoutes from './routes/facturaRoutes';
-import inventarioRoutes from './routes/inventarioRoutes';
+import votosRoutes from './routes/votosRoutes';
+import usuarioRoutes from './routes/usuarioRoutes';
 
 class Server {
 
@@ -20,6 +14,7 @@ class Server {
         this.config();
         this.routes();
     }
+
     //configuramos el servidor.
     config(): void{
         this.app.set('port', process.env.PORT || 3000);
@@ -34,14 +29,9 @@ class Server {
     }
     //configuramos las rutas de la app
     routes(): void{
-        this.app.use(indexRoutes); 
-        this.app.use('/api/user', userRoutes);
-        this.app.use('/api/producto', productRoutes); 
-        this.app.use('/api/ticket', ticketRoutes);
-        this.app.use('/api/pedido', pedidoRoutes);
-        this.app.use('/api/config', configRoutes);
-        this.app.use('/api/factura', facturaRoutes);
-        this.app.use('/api/inventario', inventarioRoutes);         
+              
+        this.app.use('/api/votos/', votosRoutes );
+        this.app.use('/api/usuario', usuarioRoutes);
     }
     //configuramos la inicializacion del servicio por el puerto 3000
     start(): void{
