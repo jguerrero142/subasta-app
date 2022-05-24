@@ -7,7 +7,7 @@ class UsuarioController{
 
     public async getUsuarios(req: Request, res: Response){
       try {
-        const usuarios = await pool.query("select * from usuarios");
+        const usuarios = await pool.query("select * from usuario");
         return res.json(usuarios);
       }catch(e){
         console.log(e);
